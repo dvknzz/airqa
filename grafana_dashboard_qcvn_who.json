@@ -1,0 +1,337 @@
+{
+  "annotations": {"list": []},
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {"h": 1, "w": 24, "x": 0, "y": 0},
+      "id": 100,
+      "title": "🌫️ Bụi mịn - QCVN 05:2023/BTNMT",
+      "type": "row"
+    },
+    {
+      "datasource": {"type": "influxdb", "uid": "${datasource}"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {"mode": "absolute", "steps": [
+            {"color": "#00E400", "value": 0},
+            {"color": "#FFFF00", "value": 25},
+            {"color": "#FF7E00", "value": 50},
+            {"color": "#FF0000", "value": 80},
+            {"color": "#8F3F97", "value": 100}
+          ]},
+          "unit": "μg/m³", "decimals": 1,
+          "displayName": "PM2.5 (QCVN)"
+        }
+      },
+      "gridPos": {"h": 5, "w": 6, "x": 0, "y": 1},
+      "id": 1,
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "reduceOptions": {"calcs": ["lastNotNull"]}},
+      "targets": [{"query": "SELECT last(\"pm2_5\") FROM \"air_quality\" WHERE (\"node_id\" = '$node_id') AND $timeFilter", "rawQuery": true, "refId": "A"}],
+      "title": "🔵 PM2.5 [QCVN ≤50]",
+      "type": "stat"
+    },
+    {
+      "datasource": {"type": "influxdb", "uid": "${datasource}"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {"mode": "absolute", "steps": [
+            {"color": "#00E400", "value": 0},
+            {"color": "#FFFF00", "value": 50},
+            {"color": "#FF7E00", "value": 100},
+            {"color": "#FF0000", "value": 150},
+            {"color": "#8F3F97", "value": 200}
+          ]},
+          "unit": "μg/m³", "decimals": 1,
+          "displayName": "PM10 (QCVN)"
+        }
+      },
+      "gridPos": {"h": 5, "w": 6, "x": 6, "y": 1},
+      "id": 2,
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "reduceOptions": {"calcs": ["lastNotNull"]}},
+      "targets": [{"query": "SELECT last(\"pm10\") FROM \"air_quality\" WHERE (\"node_id\" = '$node_id') AND $timeFilter", "rawQuery": true, "refId": "A"}],
+      "title": "🟢 PM10 [QCVN ≤100]",
+      "type": "stat"
+    },
+    {
+      "datasource": {"type": "influxdb", "uid": "${datasource}"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {"mode": "absolute", "steps": [
+            {"color": "#00E400", "value": 0},
+            {"color": "#FFFF00", "value": 15},
+            {"color": "#FF7E00", "value": 35},
+            {"color": "#FF0000", "value": 55},
+            {"color": "#8F3F97", "value": 75}
+          ]},
+          "unit": "μg/m³", "decimals": 1,
+          "displayName": "PM1.0 (REF)"
+        }
+      },
+      "gridPos": {"h": 5, "w": 6, "x": 12, "y": 1},
+      "id": 3,
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "reduceOptions": {"calcs": ["lastNotNull"]}},
+      "targets": [{"query": "SELECT last(\"pm1_0\") FROM \"air_quality\" WHERE (\"node_id\" = '$node_id') AND $timeFilter", "rawQuery": true, "refId": "A"}],
+      "title": "🟣 PM1.0 [Tham khảo]",
+      "type": "stat"
+    },
+    {
+      "datasource": {"type": "influxdb", "uid": "${datasource}"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {"mode": "absolute", "steps": [
+            {"color": "#00E400", "value": 0},
+            {"color": "#FFFF00", "value": 50},
+            {"color": "#FF7E00", "value": 100},
+            {"color": "#FF0000", "value": 150},
+            {"color": "#8F3F97", "value": 200}
+          ]},
+          "unit": "none", "decimals": 0,
+          "displayName": "VN-AQI"
+        }
+      },
+      "gridPos": {"h": 5, "w": 6, "x": 18, "y": 1},
+      "id": 4,
+      "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "reduceOptions": {"calcs": ["lastNotNull"]}},
+      "targets": [{"query": "SELECT last(\"aqi\") FROM \"air_quality\" WHERE (\"node_id\" = '$node_id') AND $timeFilter", "rawQuery": true, "refId": "A"}],
+      "title": "📊 VN-AQI [QCVN 0-500]",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {"h": 1, "w": 24, "x": 0, "y": 6},
+      "id": 101,
+      "title": "🧪 Khí - WHO 2021 + QCVN 05:2023",
+      "type": "row"
+    },
+    {
+      "datasource": {"type": "influxdb", "uid": "${datasource}"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {"mode": "absolute", "steps": [
+            {"color": "#00E400", "value": 0},
+            {"color": "#FFFF00", "value": 800},
+            {"color": "#FF7E00", "value": 1000},
+            {"color": "#FF0000", "value": 1500},
+            {"color": "#8F3F97", "value": 2000}
+          ]},
+          "unit": "ppm", "decimals": 0,
+          "displayName": "CO2 (WHO Indoor)"
+        }
+      },
+      "gridPos": {"h": 5, "w": 6, "x": 0, "y": 7},
+      "id": 10,
+      "options": {"colorMode": "value", "graphMode": "area", "reduceOptions": {"calcs": ["lastNotNull"]}},
+      "targets": [{"query": "SELECT last(\"co2_ppm\") FROM \"air_quality\" WHERE (\"node_id\" = '$node_id') AND $timeFilter", "rawQuery": true, "refId": "A"}],
+      "title": "☁️ CO2 [WHO ≤1000]",
+      "type": "stat"
+    },
+    {
+      "datasource": {"type": "influxdb", "uid": "${datasource}"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {"mode": "absolute", "steps": [
+            {"color": "#00E400", "value": 0},
+            {"color": "#FFFF00", "value": 9},
+            {"color": "#FF7E00", "value": 15},
+            {"color": "#FF0000", "value": 26},
+            {"color": "#8F3F97", "value": 35}
+          ]},
+          "unit": "ppm", "decimals": 1,
+          "displayName": "CO (QCVN)"
+        }
+      },
+      "gridPos": {"h": 5, "w": 6, "x": 6, "y": 7},
+      "id": 11,
+      "options": {"colorMode": "value", "graphMode": "area", "reduceOptions": {"calcs": ["lastNotNull"]}},
+      "targets": [{"query": "SELECT last(\"co_ppm\") FROM \"air_quality\" WHERE (\"node_id\" = '$node_id') AND $timeFilter", "rawQuery": true, "refId": "A"}],
+      "title": "💨 CO [QCVN ≤9 (8h)]",
+      "type": "stat"
+    },
+    {
+      "datasource": {"type": "influxdb", "uid": "${datasource}"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {"mode": "absolute", "steps": [
+            {"color": "#00E400", "value": 0},
+            {"color": "#FFFF00", "value": 0.1},
+            {"color": "#FF7E00", "value": 0.26},
+            {"color": "#FF0000", "value": 0.5},
+            {"color": "#8F3F97", "value": 1.0}
+          ]},
+          "unit": "ppm", "decimals": 2,
+          "displayName": "NH4 (QCVN)"
+        }
+      },
+      "gridPos": {"h": 5, "w": 6, "x": 12, "y": 7},
+      "id": 12,
+      "options": {"colorMode": "value", "graphMode": "area", "reduceOptions": {"calcs": ["lastNotNull"]}},
+      "targets": [{"query": "SELECT last(\"nh4_ppm\") FROM \"air_quality\" WHERE (\"node_id\" = '$node_id') AND $timeFilter", "rawQuery": true, "refId": "A"}],
+      "title": "🧪 NH4 [QCVN ≤0.26]",
+      "type": "stat"
+    },
+    {
+      "datasource": {"type": "influxdb", "uid": "${datasource}"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"},
+          "thresholds": {"mode": "absolute", "steps": [
+            {"color": "#00E400", "value": 0},
+            {"color": "#FFFF00", "value": 0.3},
+            {"color": "#FF7E00", "value": 0.5},
+            {"color": "#FF0000", "value": 1.0},
+            {"color": "#8F3F97", "value": 3.0}
+          ]},
+          "unit": "ppm", "decimals": 2,
+          "displayName": "VOC (WHO Indoor)"
+        }
+      },
+      "gridPos": {"h": 5, "w": 6, "x": 18, "y": 7},
+      "id": 13,
+      "options": {"colorMode": "value", "graphMode": "area", "reduceOptions": {"calcs": ["lastNotNull"]}},
+      "targets": [{"query": "SELECT last(\"voc_ppm\") FROM \"air_quality\" WHERE (\"node_id\" = '$node_id') AND $timeFilter", "rawQuery": true, "refId": "A"}],
+      "title": "🌿 VOC [WHO ≤0.5]",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {"h": 1, "w": 24, "x": 0, "y": 12},
+      "id": 102,
+      "title": "📈 Biểu đồ lịch sử",
+      "type": "row"
+    },
+    {
+      "datasource": {"type": "influxdb", "uid": "${datasource}"},
+      "fieldConfig": {
+        "defaults": {"custom": {"drawStyle": "line", "fillOpacity": 20, "lineWidth": 2, "spanNulls": true}, "unit": "μg/m³"},
+        "overrides": [
+          {"matcher": {"id": "byName", "options": "pm1_0"}, "properties": [{"id": "displayName", "value": "PM1.0"}, {"id": "color", "value": {"fixedColor": "#9C27B0", "mode": "fixed"}}]},
+          {"matcher": {"id": "byName", "options": "pm2_5"}, "properties": [{"id": "displayName", "value": "PM2.5"}, {"id": "color", "value": {"fixedColor": "#2196F3", "mode": "fixed"}}]},
+          {"matcher": {"id": "byName", "options": "pm10"}, "properties": [{"id": "displayName", "value": "PM10"}, {"id": "color", "value": {"fixedColor": "#4CAF50", "mode": "fixed"}}]}
+        ]
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 13},
+      "id": 20,
+      "options": {
+        "legend": {"calcs": ["mean", "max", "min"], "displayMode": "table", "placement": "bottom"},
+        "tooltip": {"mode": "multi"}
+      },
+      "targets": [{"query": "SELECT mean(\"pm1_0\") as pm1_0, mean(\"pm2_5\") as pm2_5, mean(\"pm10\") as pm10 FROM \"air_quality\" WHERE (\"node_id\" = '$node_id') AND $timeFilter GROUP BY time($__interval) fill(null)", "rawQuery": true, "refId": "A"}],
+      "title": "Bụi mịn PM (QCVN: PM2.5 ≤50, PM10 ≤100)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {"type": "influxdb", "uid": "${datasource}"},
+      "fieldConfig": {
+        "defaults": {"custom": {"drawStyle": "line", "fillOpacity": 20, "lineWidth": 2, "spanNulls": true}, "unit": "ppm"},
+        "overrides": [
+          {"matcher": {"id": "byName", "options": "co2_ppm"}, "properties": [{"id": "displayName", "value": "CO2 (WHO)"}, {"id": "color", "value": {"fixedColor": "#E91E63", "mode": "fixed"}}]},
+          {"matcher": {"id": "byName", "options": "co_ppm"}, "properties": [{"id": "displayName", "value": "CO (QCVN)"}, {"id": "color", "value": {"fixedColor": "#FF5722", "mode": "fixed"}}]},
+          {"matcher": {"id": "byName", "options": "voc_ppm"}, "properties": [{"id": "displayName", "value": "VOC (WHO)"}, {"id": "color", "value": {"fixedColor": "#00BCD4", "mode": "fixed"}}]}
+        ]
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 13},
+      "id": 21,
+      "options": {
+        "legend": {"calcs": ["mean", "max", "min"], "displayMode": "table", "placement": "bottom"},
+        "tooltip": {"mode": "multi"}
+      },
+      "targets": [{"query": "SELECT mean(\"co2_ppm\") as co2_ppm, mean(\"co_ppm\") as co_ppm, mean(\"voc_ppm\") as voc_ppm FROM \"air_quality\" WHERE (\"node_id\" = '$node_id') AND $timeFilter GROUP BY time($__interval) fill(null)", "rawQuery": true, "refId": "A"}],
+      "title": "Khí (WHO: CO2 ≤1000, VOC ≤0.5 | QCVN: CO ≤9)",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {"h": 1, "w": 24, "x": 0, "y": 21},
+      "id": 103,
+      "title": "📊 Gauges - Ngưỡng QCVN/WHO",
+      "type": "row"
+    },
+    {
+      "datasource": {"type": "influxdb", "uid": "${datasource}"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"}, "min": 0, "max": 150,
+          "thresholds": {"mode": "absolute", "steps": [{"color": "#00E400", "value": 0}, {"color": "#FFFF00", "value": 25}, {"color": "#FF7E00", "value": 50}, {"color": "#FF0000", "value": 80}, {"color": "#8F3F97", "value": 100}]},
+          "unit": "μg/m³"
+        }
+      },
+      "gridPos": {"h": 6, "w": 6, "x": 0, "y": 22},
+      "id": 30,
+      "options": {"showThresholdLabels": true, "showThresholdMarkers": true},
+      "targets": [{"query": "SELECT last(\"pm2_5\") FROM \"air_quality\" WHERE (\"node_id\" = '$node_id') AND $timeFilter", "rawQuery": true, "refId": "A"}],
+      "title": "PM2.5 [QCVN]",
+      "type": "gauge"
+    },
+    {
+      "datasource": {"type": "influxdb", "uid": "${datasource}"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"}, "min": 0, "max": 250,
+          "thresholds": {"mode": "absolute", "steps": [{"color": "#00E400", "value": 0}, {"color": "#FFFF00", "value": 50}, {"color": "#FF7E00", "value": 100}, {"color": "#FF0000", "value": 150}, {"color": "#8F3F97", "value": 200}]},
+          "unit": "μg/m³"
+        }
+      },
+      "gridPos": {"h": 6, "w": 6, "x": 6, "y": 22},
+      "id": 31,
+      "options": {"showThresholdLabels": true, "showThresholdMarkers": true},
+      "targets": [{"query": "SELECT last(\"pm10\") FROM \"air_quality\" WHERE (\"node_id\" = '$node_id') AND $timeFilter", "rawQuery": true, "refId": "A"}],
+      "title": "PM10 [QCVN]",
+      "type": "gauge"
+    },
+    {
+      "datasource": {"type": "influxdb", "uid": "${datasource}"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"}, "min": 0, "max": 2500,
+          "thresholds": {"mode": "absolute", "steps": [{"color": "#00E400", "value": 0}, {"color": "#FFFF00", "value": 800}, {"color": "#FF7E00", "value": 1000}, {"color": "#FF0000", "value": 1500}, {"color": "#8F3F97", "value": 2000}]},
+          "unit": "ppm"
+        }
+      },
+      "gridPos": {"h": 6, "w": 6, "x": 12, "y": 22},
+      "id": 32,
+      "options": {"showThresholdLabels": true, "showThresholdMarkers": true},
+      "targets": [{"query": "SELECT last(\"co2_ppm\") FROM \"air_quality\" WHERE (\"node_id\" = '$node_id') AND $timeFilter", "rawQuery": true, "refId": "A"}],
+      "title": "CO2 [WHO Indoor]",
+      "type": "gauge"
+    },
+    {
+      "datasource": {"type": "influxdb", "uid": "${datasource}"},
+      "fieldConfig": {
+        "defaults": {
+          "color": {"mode": "thresholds"}, "min": 0, "max": 300,
+          "thresholds": {"mode": "absolute", "steps": [{"color": "#00E400", "value": 0}, {"color": "#FFFF00", "value": 50}, {"color": "#FF7E00", "value": 100}, {"color": "#FF0000", "value": 150}, {"color": "#8F3F97", "value": 200}]},
+          "unit": "none"
+        }
+      },
+      "gridPos": {"h": 6, "w": 6, "x": 18, "y": 22},
+      "id": 33,
+      "options": {"showThresholdLabels": true, "showThresholdMarkers": true},
+      "targets": [{"query": "SELECT last(\"aqi\") FROM \"air_quality\" WHERE (\"node_id\" = '$node_id') AND $timeFilter", "rawQuery": true, "refId": "A"}],
+      "title": "VN-AQI [QCVN]",
+      "type": "gauge"
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 39,
+  "tags": ["air-quality", "qcvn", "who"],
+  "templating": {
+    "list": [
+      {"current": {"text": "InfluxDB", "value": "InfluxDB"}, "hide": 0, "name": "datasource", "query": "influxdb", "type": "datasource"},
+      {"current": {"text": "node1", "value": "node1"}, "name": "node_id", "options": [{"selected": true, "text": "node1", "value": "node1"}, {"text": "node2", "value": "node2"}], "query": "node1,node2", "type": "custom"}
+    ]
+  },
+  "time": {"from": "now-24h", "to": "now"},
+  "timezone": "Asia/Ho_Chi_Minh",
+  "title": "🌬️ Air Quality - QCVN + WHO",
+  "uid": "airquality-qcvn-who"
+}
